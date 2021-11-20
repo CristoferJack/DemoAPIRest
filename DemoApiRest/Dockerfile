@@ -8,6 +8,10 @@ EXPOSE 443
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
 WORKDIR /src
 COPY ["DemoApiRest/DemoApiRest.csproj", "DemoApiRest/"]
+COPY ["DataAccess/DataAccess.csproj", "DataAccess/"]
+COPY ["Entities/Entities.csproj", "Entities/"]
+COPY ["Services/Services.csproj", "Services/"]
+COPY ["Dto/Dto.csproj", "Dto/"]
 RUN dotnet restore "DemoApiRest/DemoApiRest.csproj"
 COPY . .
 WORKDIR "/src/DemoApiRest"

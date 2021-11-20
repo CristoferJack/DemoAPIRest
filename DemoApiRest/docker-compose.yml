@@ -1,0 +1,11 @@
+﻿version: "3.3"
+services:
+  apidemo:
+    build: ./
+    ports:
+      - "9000:80"
+    environment:
+      SERVER: "192.168.0.13\\SQLEXPRESS"
+      USER: "sa"
+      PASSWORD: "123456"
+      DATABASE: "DemoApiRestDB"
