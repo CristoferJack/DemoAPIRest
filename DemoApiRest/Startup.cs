@@ -22,9 +22,9 @@ namespace DemoApiRest
         {
             var builder = new ConfigurationBuilder()
                 .SetBasePath(environment.ContentRootPath)
-                .AddJsonFile("appsettings.json", optional: false,
+                .AddJsonFile("appsettings.json", optional: true,
                 reloadOnChange: true)
-                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: false,
+                .AddJsonFile($"appsettings.{environment.EnvironmentName}.json", optional: true,
                 reloadOnChange: true);
 
             builder.AddEnvironmentVariables();

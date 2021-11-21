@@ -1,26 +1,9 @@
-#See https://aka.ms/containerfastmode to understand how Visual Studio uses this Dockerfile to build your images for faster debugging.
+FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim
 
-FROM mcr.microsoft.com/dotnet/core/aspnet:3.1-buster-slim AS base
 WORKDIR /app
 EXPOSE 80
 EXPOSE 443
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1-buster AS build
-WORKDIR /src
-COPY ["DemoApiRest/DemoApiRest.csproj", "DemoApiRest/"]
-COPY ["DataAccess/DataAccess.csproj", "DataAccess/"]
-COPY ["Entities/Entities.csproj", "Entities/"]
-COPY ["Services/Services.csproj", "Services/"]
-COPY ["Dto/Dto.csproj", "Dto/"]
-RUN dotnet restore "DemoApiRest/DemoApiRest.csproj"
-COPY . .
-WORKDIR "/src/DemoApiRest"
-RUN dotnet build "DemoApiRest.csproj" -c Release -o /app/build
+COPY ./publish .
 
-FROM build AS publish
-RUN dotnet publish "DemoApiRest.csproj" -c Release -o /app/publish
-
-FROM base AS final
-WORKDIR /app
-COPY --from=publish /app/publish .
 ENTRYPOINT ["dotnet", "DemoApiRest.dll"]
